@@ -1,1 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="간단하고 깔끔한 연령 계산기">
+  <title>연령 계산기</title>
+</head>
 
+<body>
+  <h1>연령 계산기</h1>
+
+  <label for="birthDate">생년월일</label>
+  <input id="birthDate" type="date">
+
+  <button onclick="calculateAge()">나이 계산하기</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateAge() {
+      const value = document.getElementById("birthDate").value;
+
+      if (!value) {
+        document.getElementById("result").textContent =
+          "생년월일을 입력해주세요.";
+        return;
+      }
+
+      const birth = new Date(value);
+      const today = new Date();
+
+      let age = today.getFullYear() - birth.getFullYear();
+
+      const birthdayPassed =
+        today.getMonth() > birth.getMonth() ||
+        (
+          today.getMonth() === birth.getMonth() &&
+          today.getDate() >= birth.getDate()
+        );
+
+      if (!birthdayPassed) {
+        age--;
+      }
+
+      document.getElementById("result").textContent =
+        "만 나이: " + age + "세";
+    }
+  </script>
+</body>
+</html>
